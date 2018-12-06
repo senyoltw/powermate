@@ -1,0 +1,14 @@
+[Unit]
+Description=powermate
+After=network.target
+
+[Service]
+Type=simple
+User=pi
+WorkingDirectory=/home/pi/powermate
+ExecStart=/usr/bin/python -u /home/pi/powermate/mpd_powermate.py
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

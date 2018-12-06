@@ -20,6 +20,22 @@ $ echo 'KERNEL=="event*", NAME="input/%k", MODE="660", GROUP="input"' | sudo tee
 
 After a reboot your scripts should be able to read/write to the device.
 
+使い方
+=====
+```
+pip install python-mpd2
+python mpd_powermate.py
+```
+
+サービス化
+========
+```
+cd powermate
+sudo cp powermate.service /etc/systemd/system/powermate.service
+sudo systemctl daemon-reload
+sudo systemctl start powermate.service
+```
+
 writing your own
 ================
 
