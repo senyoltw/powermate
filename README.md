@@ -1,3 +1,5 @@
+Griffin Powermate audio controller for mpd (Music Player Daemon)
+
 powermate
 =========
 
@@ -20,14 +22,14 @@ $ echo 'KERNEL=="event*", NAME="input/%k", MODE="660", GROUP="input"' | sudo tee
 
 After a reboot your scripts should be able to read/write to the device.
 
-使い方
+使い方 How to USE
 =====
 ```
 pip install python-mpd2
 python mpd_powermate.py
 ```
 
-サービス化
+サービス化 daemonize
 ========
 ```
 cd powermate
