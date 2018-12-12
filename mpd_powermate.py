@@ -29,12 +29,14 @@ class ExamplePowerMate(PowerMateBase):
     self._pulsing = not self._pulsing
     print(self._pulsing)
 
+    client = connectMPD()
     if client.status()["state"] == "play":
       client.pause()
       print('Audio pause!')
     else:
       client.play()
       print('Audio play!')
+    client.close()
 
     if self._pulsing:
       return LedEvent.pulse()
@@ -49,18 +51,22 @@ class ExamplePowerMate(PowerMateBase):
     self._brightness = max(0, min(MAX_BRIGHTNESS, self._brightness + rotation))
     self._pulsing = False
 
+    client = connectMPD()
     cur_vol = int(client.status()["volume"])
     client.setvol(cur_vol + rotation)
+    client.close()
 
     return LedEvent(brightness=self._brightness)
 
   def push_rotate(self, rotation):
     print('Push rotate {}!'.format(rotation))
 
+    client = connectMPD()
     if rotation == 1:
       client.next()
     else:
       client.previous()
+    client.close()
     sleep(0.5)
 
 if __name__ == '__main__':
@@ -69,10 +75,9 @@ if __name__ == '__main__':
   while not client:
     client = connectMPD()
     if not client:
-      time.sleep(2)
+      sleep(2)
 
   print 'Ready: Powermate controler'
 
   pm = ExamplePowerMate(glob.glob('/dev/input/by-id/*PowerMate*')[0])
   pm.run()
-  client.close()
