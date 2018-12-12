@@ -64,7 +64,15 @@ class ExamplePowerMate(PowerMateBase):
     sleep(0.5)
 
 if __name__ == '__main__':
-  client = connectMPD()
+  client = None
+
+  while not client:
+    client = connectMPD()
+    if not client:
+      time.sleep(2)
+
+  print 'Ready: Powermate controler'
+
   pm = ExamplePowerMate(glob.glob('/dev/input/by-id/*PowerMate*')[0])
   pm.run()
   client.close()
